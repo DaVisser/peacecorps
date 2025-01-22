@@ -10,6 +10,7 @@
 
     <h1 style="text-align:center;">Peace Corps Interactive Globe</h1>
     <div id="world-map" style="width: 100%; height: 600px;"></div>
+    <img src="https://github.com/DaVisser/peacecorps-map/blob/main/PCMarker.png" alt="Test Image" width="100">
 
     <script>
         // Country data with latitude, longitude, and URLs
@@ -86,7 +87,7 @@
             lon: countries.map(c => c.lon),
             lat: countries.map(c => c.lat),
             marker: {
-                size: 20,  // Adjust size (lower value if it's too big)
+                size: 10,  // Adjust size (lower value if it's too big)
                 symbol: "https://github.com/DaVisser/peacecorps-map/blob/main/PCMarker.png",  // Avoids distortion
                 opacity: 1
             }
