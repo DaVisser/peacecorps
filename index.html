@@ -86,9 +86,9 @@
             lon: countries.map(c => c.lon),
             lat: countries.map(c => c.lat),
             marker: {
-                symbol: 'image',
-                symbolsrc: 'PCMarker.png',
-                size: 20
+                size: 20,  // Adjust size (lower value if it's too big)
+                symbol: "circle-open-dot",  // Avoids distortion
+                opacity: 1
             }
         };
 
