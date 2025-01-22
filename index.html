@@ -79,20 +79,6 @@
             {"name": "Paraguay", "lat": -23.4425, "lon": -58.4438, "url": "https://www.peacecorps.gov/paraguay/stories"}
         ]
 
-        // Create map using Plotly.js
-        const trace = {
-            type: "scattergeo",
-            mode: "markers",
-            text: countries.map(c => c.name),
-            lon: countries.map(c => c.lon),
-            lat: countries.map(c => c.lat),
-            marker: {
-                size: 15,  // Adjust size (lower value if it's too big)
-                symbol: "PCMarker.png",  // Avoids distortion
-                opacity: 1
-            }
-        };
-
         // Create map using Plotly.js with annotations
         const layout = {
             title: "Peace Corps Interactive Globe",
@@ -104,22 +90,27 @@
                 y: c.lat,
                 xref: "paper",  // Ensures correct scaling
                 yref: "paper",
-                text: `<img src="PCMarker.svg" width="20px" height="20px">`, // Embed SVG
+                text: `<img src="PCMarker.svg" width="20px" data-country="${c.name}">`, // Embed SVG
                 showarrow: false
             }))
         };
 
-// Generate the map
-Plotly.newPlot("world-map", [], layout);
+        // Generate the map
+        Plotly.newPlot("world-map", [], layout);
+
 
         // Click event listener
-        document.getElementById("world-map").on('plotly_click', function(data) {
-            const clickedCountry = data.points[0].text;
-            const countryObj = countries.find(c => c.name === clickedCountry);
-            if (countryObj) {
-                window.open(countryObj.url, "_blank");
+        document.getElementById("world-map").addEventListener("click", function(event) {
+            let clickedElement = event.target.closest("img");
+            if (clickedElement) {
+                const clickedCountry = clickedElement.getAttribute("data-country");
+                const countryObj = countries.find(c => c.name === clickedCountry);
+                if (countryObj) {
+                    window.open(countryObj.url, "_blank");
+                }
             }
         });
+
 
     </script>
 
