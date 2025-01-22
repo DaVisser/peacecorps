@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <h1 style="text-align:center;">Peace Corps Interactive Globe</h1>
+    <h1 style="text-align:center;">Peace Corps Stories Around the Globe</h1>
     <div id="world-map" style="width: 100%; height: 600px;"></div>
 
     <script>
@@ -78,30 +78,30 @@
             {"name": "Paraguay", "lat": -23.4425, "lon": -58.4438, "url": "https://www.peacecorps.gov/paraguay/stories"}
         ]
 
-        // Create map using Plotly.js
-        const trace = {
+
+        // Create the scattergeo trace for the markers
+        const scattergeoTrace = {
             type: "scattergeo",
             mode: "markers",
             text: countries.map(c => c.name),
             lon: countries.map(c => c.lon),
             lat: countries.map(c => c.lat),
             marker: {
-                color: 'pink',
+                color: 'navy',
                 symbol: 'star',
                 size: 12
             }
         };
 
         const layout = {
-            title: "Peace Corps Interactive Globe",
+            title: "Daniel Visser",
             geo: {
-                projection: { type: "natural earth" },
-                landcolor: "lightgreen",
-                watercolor: "lightblue"
+                projection: { type: "natural earth" }
             }
         };
 
-        Plotly.newPlot("world-map", [trace], layout);
+        // Plot traces of markers
+        Plotly.newPlot("world-map", [scattergeoTrace], layout);
 
         // Click event listener
         document.getElementById("world-map").on('plotly_click', function(data) {
@@ -111,8 +111,10 @@
                 window.open(countryObj.url, "_blank");
             }
         });
-
     </script>
 
 </body>
 </html>
+
+
+
