@@ -10,7 +10,6 @@
 
     <h1 style="text-align:center;">Peace Corps Interactive Globe</h1>
     <div id="world-map" style="width: 100%; height: 600px;"></div>
-    <img src="PCMarker.png" alt="Test Image" width="100">
 
     <script>
         // Country data with latitude, longitude, and URLs
@@ -77,42 +76,52 @@
             {"name": "Ecuador", "lat": -1.8312, "lon": -78.1834, "url": "https://www.peacecorps.gov/ecuador/stories"},
             {"name": "Guyana", "lat": 4.8604, "lon": -58.9302, "url": "https://www.peacecorps.gov/guyana/stories"},
             {"name": "Paraguay", "lat": -23.4425, "lon": -58.4438, "url": "https://www.peacecorps.gov/paraguay/stories"}
-        ]
+        ];
 
-        // Create map using Plotly.js with annotations
+         // Custom SVG path for Peace Corps logo or any other marker
+         const svgPath = "path:PCMarker.svg"; // Replace with your actual SVG path
+
+        // Scattergeo trace with SVG markers
+        const data = [{
+            type: "scattergeo",
+            mode: "markers",
+            lat: countries.map(c => c.lat),
+            lon: countries.map(c => c.lon),
+            text: countries.map(c => c.name),
+            hoverinfo: "text",
+            marker: {
+                size: 15,  // Adjust size as needed
+                symbol: svgPath,  // Use custom SVG path as marker
+                color: "red",  // Adjust color if needed
+                line: {
+                    width: 1,
+                    color: "black"
+                }
+            }
+        }];
+
+        // Layout for the world map
         const layout = {
             title: "Peace Corps Interactive Globe",
             geo: {
-                projection: { type: "natural earth" }
-            },
-            annotations: countries.map(c => ({
-                x: c.lon,
-                y: c.lat,
-                xref: "paper",  // Ensures correct scaling
-                yref: "paper",
-                text: `<img src="PCMarker.svg" width="20px" data-country="${c.name}">`, // Embed SVG
-                showarrow: false
-            }))
+                projection: { type: "natural earth" },
+                showland: true,
+                landcolor: "rgb(243, 243, 243)",
+                countrycolor: "rgb(204, 204, 204)"
+            }
         };
 
-        // Generate the map
-        Plotly.newPlot("world-map", [], layout);
+        // Render the Plotly globe
+        Plotly.newPlot("world-map", data, layout);
 
-
-        // Click event listener
-        document.getElementById("world-map").addEventListener("click", function(event) {
-            let clickedElement = event.target.closest("img");
-            if (clickedElement) {
-                const clickedCountry = clickedElement.getAttribute("data-country");
-                const countryObj = countries.find(c => c.name === clickedCountry);
-                if (countryObj) {
-                    window.open(countryObj.url, "_blank");
-                }
-            }
+        // Click event to open Peace Corps story links
+        document.getElementById("world-map").on("plotly_click", function(data){
+            const pointIndex = data.points[0].pointIndex;
+            const country = countries[pointIndex];
+            window.open(country.url, "_blank");
         });
 
-
-    </script>
+</script>
 
 </body>
 </html>
