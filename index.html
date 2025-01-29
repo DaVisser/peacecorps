@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <h1 style="text-align:center;">Peace Corps Stories Around the Globe</h1>
+    <h1 style="text-align:center;">Peace Corps Interactive Globe</h1>
     <div id="world-map" style="width: 100%; height: 600px;"></div>
 
     <script>
@@ -78,7 +78,6 @@
             {"name": "Paraguay", "lat": -23.4425, "lon": -58.4438, "url": "https://www.peacecorps.gov/paraguay/stories"}
         ]
 
-
         // Create the scattergeo trace for the markers
         const scattergeoTrace = {
             type: "scattergeo",
@@ -89,18 +88,25 @@
 
             hoverinfo: "text", 
             marker: {
-                color: 'navy',
-                symbol: 'star',
-                size: 10
+            color: "yellow",
+            symbol: 'star',
+            size: 14,
+            line: {
+                color: 'black',
+                width: 2
+            }
             }
         };
 
         const layout = {
-            title: "Peace Corps Interactive Globe",
             geo: {
-            projection: { type: "orthographic" },
-            zoom: 1,
-            fixedrange: true
+                projection: { type: "orthographic" },
+                zoom: 1,
+                fixedrange: true,
+                showland: true,
+                landcolor: "rgb(17, 119, 51)",
+                showocean: true,
+                oceancolor: "rgb(0, 108, 209)"
             }
         };
 
