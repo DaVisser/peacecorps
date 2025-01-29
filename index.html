@@ -86,19 +86,24 @@
             text: countries.map(c => c.name),
             lon: countries.map(c => c.lon),
             lat: countries.map(c => c.lat),
+
+            hoverinfo: "text", 
             marker: {
                 color: 'navy',
                 symbol: 'star',
-                size: 12
+                size: 10
             }
         };
 
         const layout = {
-            title: "Daniel Visser",
+            title: "Peace Corps Interactive Globe",
             geo: {
-                projection: { type: "natural earth" }
+            projection: { type: "orthographic" },
+            zoom: 1,
+            fixedrange: true
             }
         };
+
 
         // Plot traces of markers
         Plotly.newPlot("world-map", [scattergeoTrace], layout);
@@ -115,6 +120,3 @@
 
 </body>
 </html>
-
-
-
